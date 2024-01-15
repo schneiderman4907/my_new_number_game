@@ -1,0 +1,73 @@
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schneidermans Guess the Number Game</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 50px;
+        }
+
+        #output {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #inputField {
+            font-size: 18px;
+            padding: 5px;
+        }
+
+        #submitBtn {
+            font-size: 18px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0"></script>
+</head>
+<body>
+    <h1>Guess the Number Game</h1>
+    <div id="output">Try to guess the number between 1 and 100.</div>
+    <input type="number" id="inputField" placeholder="Enter your guess">
+    <button id="submitBtn" onclick="submitGuess()">Submit Guess</button>
+
+    <script>
+        // Generate a random number between 1 and 100
+        const secretNumber = Math.floor(Math.random() * 100) + 1;
+
+        function submitGuess() {
+            // Get the player's guess from the input field
+            const playerGuess = parseInt(document.getElementById("inputField").value);
+
+            // Check if the guess is correct, too low, or too high
+            if (isNaN(playerGuess)) {
+                updateOutput("Please enter a valid number.");
+            } else if (playerGuess === secretNumber) {
+                updateOutput("Congratulations! You guessed the correct number!");
+                celebrate();
+            } else if (playerGuess < secretNumber) {
+                updateOutput("Too low! Try again.");
+            } else {
+                updateOutput("Too high! Try again.");
+            }
+        }
+
+        function updateOutput(message) {
+            document.getElementById("output").innerText = message;
+        }
+
+        function celebrate() {
+            // Trigger confetti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+</html>
